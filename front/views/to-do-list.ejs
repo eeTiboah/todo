@@ -1,0 +1,63 @@
+
+<%- include("partials/header"); -%>
+  <main>
+
+    <!-- Title -->
+    <div class="box" id="heading">
+      <h1><%= listTitle %></h1>
+    </div>
+
+    <!-- List box -->
+    <div class="box">
+      <% newItems.forEach((list)=>{ %>
+        <%  if (list.name.length > 0){ %>
+          <form action="/delete" method="POST">
+            <div class="item">
+              <p class="listItem"> <%= list.name %></p>
+              <button onclick="this.form.submit()" name="delete" value="<%=list._id %>" class="material-icons">delete</button>
+            </div>
+            <input type="hidden" name="listName" value="<%= listTitle %>"></input>
+          </form>
+
+        <% } %>
+      <% }) %>
+
+    <!-- Add a new item -->
+    <form action="/" method="post" class="item">
+      <label for="add-item" class="sr-only">Add new item</label>
+      <input type="text" name="addItem" id="#add-item" class="form-control" placeholder="Add new item" autocomplete="off">
+      <button type="submit" class="btn btn-lg btn-light" name="button" value="<%= listTitle %>"> + </button>
+    </form>
+
+    </div>
+  </main>
+
+  <!-- Section for selecting an existing list or custom list -->
+  <section>
+    <div class="box title text-center">
+      <h3>Go to your custom list</h3>
+    </div>
+    <div class="box customList">
+      <form action="/customList" method="POST">
+        <select class="createdList" name="createdList" onchange="this.form.submit()" value="selected">
+          <option value=""></option>
+          <% selectedList.forEach((item) => {%>
+            <option value="<%= item.name %>"><%= item.name %></option>
+          <%});%>
+        </select>
+      </form>
+    </div>
+
+    <div class="box title text-center">
+      <h3>Create a custom list</h3>
+    </div>
+
+    <div class="box customList">
+      <form action="/customList" method="POST">
+        <input type="text" name="newlistTitle" id="customList" class="form-control" placeholder="Title">
+        <button type="submit" class="btn btn-lg btn-light" name="newList"> + </button>
+      </form>
+    </div>
+
+  </section>
+  <%- include("partials/footer"); -%>
