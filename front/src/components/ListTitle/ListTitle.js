@@ -49,7 +49,7 @@ const ListTitle = () => {
        <div>
             <label htmlFor="listname">Title</label>
             <input type='text' id="listname" value={customListData.name} onChange={changeHandler} name="listname" placeholder="Add New Item" />
-            <button onClick={addListNameHandler}>Add List Name</button>
+            <button onClick={addListNameHandler}>Add Custom List Name</button>
 
             <ListDropDown listTitles={listTitles} />
             <label htmlFor='todoItem'>Add Item</label>
