@@ -1,42 +1,42 @@
 import axios from 'axios'
 
-// const api = axios.create({
-//     baseURL: 'http://localhost:5000',
-// })
-
 const url = 'http://localhost:5000';
 
-// export const getTodos = async ()=> await api.get('/')
-// export const getCustomList = (payload) => api.post(`/customList`)
-
-
 export const getTodos = async(customList)=>{
-    let changeableUrl = url;
-    if (customList){
-        changeableUrl = `${url}/${customList}`
-    }
     try{
-        // const {data} = await api.get('/')
-        const {data} = await axios.get(changeableUrl)
-        // console.log(data)
-        return data
+        const {data} = await axios.get(url)
+        return data;
     }
     catch (error) {
-    throw new Error(error)
+        throw new Error(error)
     }
 }
 
-// export const addCustomList = async(name)=>{
-//     try{
-//         // const customListName = {
-//         //     name: payload
-//         // }
-//         const saveCustomList = await axios.post(url + '/customList', name)
-//         return saveCustomList
-//     } catch(error){
-//         throw new Error(error)
-//     }
-// }
+export const addCustomList = async(payload)=>{
+    try{
+        const customListName = {
+            name: payload.name,
+            status: false,
+            items: [{
+                name: payload.items.name
+            }]
+        }
+        const saveTodo = await axios.post(url, customListName)
+        return saveTodo
+    } catch(error){
+        throw new Error(error)
+    }
+}
+
+
+export const deleteCustomListData = async(_id)=>{
+    try{
+        const deletedTodo = await axios.delete(`${url}/delete${_id}`)
+        return deletedTodo
+    } catch(error){
+        throw new Error(error)
+    }
+}
 
 // export const getCustomList = async()=>{
 //     try{

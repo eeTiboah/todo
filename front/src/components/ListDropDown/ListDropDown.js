@@ -14,7 +14,9 @@ const ListDropDown = ({listTitles, history})=>{
     });
 
     const listChangeHandler = async (event)=>{
-        history.push(`/${event.target.value}`)
+        const selectCustomName = event.target.value
+        history.push(`/${selectCustomName}`)
+        setSelectedTitle(selectCustomName)
         const listInputTitle = event.target.value
         const {selectedList} = await getTodos()
         const index = selectedList.findIndex((x=>x.name === listInputTitle))
@@ -24,6 +26,8 @@ const ListDropDown = ({listTitles, history})=>{
         console.log(titleInfo['items'])
         console.log(selectedList)
     }
+
+    // console.log(selectedTitle)
 
 
     return (

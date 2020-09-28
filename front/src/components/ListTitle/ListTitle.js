@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {getTodos} from '../../api'
+import {getTodos, addCustomList} from '../../api'
 import ListDropDown from '../ListDropDown/ListDropDown'
 
 
@@ -32,18 +32,32 @@ const ListTitle = () => {
         setInputListItem(item)
     }
 
-    const addListNameHandler = ()=>{
-        setCustomListData({
+    const addListNameHandler = async (e)=>{
+        e.preventDefault()
+        if (!inputListTitle){
+            alert('Please enter a custom list name')
+            return 
+        }
+
+        // if (listTitles.some(({name}) => name === inputListTitle)){
+        //     alert(`Custom list name ${inputListTitle} already exists`)
+        //     return
+        // }
+
+        const payload = setCustomListData({
             name: inputListTitle,
             items: [{
                 name: ''
             }]
         })
+        const newName = await addCustomList(payload)
+        setListTitles(listTitles => [...listTitles, newName])
     }
 
-    const addListItemHandler = ()=> {
-        console.log('')
+    const addListItemHandler = () =>{
+        console.log('peace')
     }
+
 
     return (
        <div>
